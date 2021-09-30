@@ -17,6 +17,8 @@ images:
     newTag: 0.30.3-alpha
   - name: airbyte/worker
     newTag: 0.30.3-alpha
+  - name: airbyte/migration
+    newTag: 0.30.3-alpha
   - name: temporalio/auto-setup
     newTag: 1.7.0
 
