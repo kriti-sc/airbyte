@@ -1,0 +1,35 @@
+kind: ClusterConfig
+apiVersion: eksctl.io/v1alpha5
+metadata:
+  name: airbyte-dev
+  region: us-east-1
+  version: "1.20"
+availabilityZones: ['us-east-1a', 'us-east-1b', 'us-east-1c', 'us-east-1d']
+cloudWatch:
+  clusterLogging:
+    enableTypes: ['all']
+managedNodeGroups:
+  - name: airbyte-nodes
+    instanceType: t3.medium
+    minSize: 2
+    maxSize: 3
+    desiredCapacity: 2
+    volumeSize: 30
+    ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/ec2_id_rsa.pub
+      publicKeyName: airbyte-nodes
+    labels: {role: airbyte-node}
+    tags:
+      nodegroup-role: airbyte-node
+    privateNetworking: true
+    iam:
+      withAddonPolicies:
+        externalDNS: true
+        certManager: true
+        imageBuilder: true
+        autoScaler: true
+        efs: true
+        ebs: true
+        cloudWatch: true
+        albIngress: true
